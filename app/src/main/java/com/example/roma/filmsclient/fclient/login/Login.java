@@ -7,6 +7,8 @@ import com.example.roma.filmsclient.R;
 
 public class Login extends AppCompatActivity implements LoginContract.View {
 
+    LoginContract.Presenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
