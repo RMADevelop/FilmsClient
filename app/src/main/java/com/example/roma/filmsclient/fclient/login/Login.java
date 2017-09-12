@@ -2,11 +2,14 @@ package com.example.roma.filmsclient.fclient.login;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.example.roma.filmsclient.R;
 import com.example.roma.filmsclient.utils.Injection;
+import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
 public class Login extends AppCompatActivity implements LoginContract.View {
@@ -16,6 +19,8 @@ public class Login extends AppCompatActivity implements LoginContract.View {
     private EditText login;
 
     private EditText password;
+
+    private ProgressBar progress;
 
     private Button sentAuthToken;
 
@@ -31,7 +36,10 @@ public class Login extends AppCompatActivity implements LoginContract.View {
     private void initAuthField() {
         password = (EditText) findViewById(R.id.password);
         login = (EditText) findViewById(R.id.login);
+        progress = (ProgressBar) findViewById(R.id.progress_login);
         sentAuthToken = (Button) findViewById(R.id.send_auth_button);
+
+        presenter.obsSendButton(RxView.clicks(sentAuthToken), login.getText().toString(), password.getText().toString());
 
         presenter.obsLoginPassword(RxTextView.textChanges(login),
                 RxTextView.textChanges(password));
@@ -45,5 +53,10 @@ public class Login extends AppCompatActivity implements LoginContract.View {
     @Override
     public void setStateButton(boolean state) {
         sentAuthToken.setEnabled(state);
+    }
+
+    @Override
+    public void setStateProgress(boolean state) {
+        progress.setVisibility(state ? View.VISIBLE : View.INVISIBLE);
     }
 }
