@@ -30,8 +30,7 @@ public class Request {
                     public void accept(@NonNull Throwable throwable) throws Exception {
                         throwable.printStackTrace();
                     }
-                })
-                .subscribeOn(Schedulers.io());
+                });
 
     }
 
@@ -49,7 +48,6 @@ public class Request {
                     public void accept(@NonNull Throwable throwable) throws Exception {
                         throwable.printStackTrace();
                     }
-                })
-                .subscribeOn(Schedulers.io());
+                });
     }
 }

@@ -10,16 +10,12 @@ import com.example.roma.filmsclient.retrofit.Request;
 import com.jakewharton.rxbinding2.InitialValueObservable;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.Single;
-import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Action;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
-import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.example.roma.filmsclient.utils.Const.API_v3;
@@ -29,6 +25,10 @@ public class LoginPresenter implements LoginContract.Presenter {
     LoginContract.View view;
 
     Repository repository;
+
+    String loginS;
+
+    String passS;
 
     public LoginPresenter(LoginContract.View view, Repository repository) {
         this.view = view;
@@ -47,11 +47,14 @@ public class LoginPresenter implements LoginContract.Presenter {
 
 
     @Override
-    public void obsLoginPassword(InitialValueObservable<CharSequence> login, InitialValueObservable<CharSequence> pass) {
+    public void obsLoginPassword(final InitialValueObservable<CharSequence> login, InitialValueObservable<CharSequence> pass) {
         Observable<Boolean> combine = Observable.combineLatest(login,
                 pass, new BiFunction<CharSequence, CharSequence, Boolean>() {
                     @Override
                     public Boolean apply(@NonNull CharSequence charSequence, @NonNull CharSequence charSequence2) throws Exception {
+                        Log.v("sadfdgsdfg", "login pass " + login.toString());
+                        loginS = charSequence.toString();
+                        passS = charSequence2.toString();
                         return charSequence.length() > 3 && charSequence2.length() > 3;
                     }
                 });
@@ -64,7 +67,8 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
-    public void obsSendButton(Observable<Object> btn, final String login, final String pass) {
+    public void obsSendButton(Observable<Object> btn) {
+
 //        btn.map(new Function<Object, Object>() {
 //            @Override
 //            public Object apply(@NonNull Object o) throws Exception {
@@ -73,6 +77,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 //            }
 //        }).subscribe();
         btn
+                .observeOn(Schedulers.io())
                 .map(new Function<Object, Object>() {
                     @Override
                     public Object apply(@NonNull Object o) throws Exception {
@@ -100,12 +105,12 @@ public class LoginPresenter implements LoginContract.Presenter {
                 .flatMapSingle(new Function<String, Single<TokenLoginPass>>() {
                     @Override
                     public Single<TokenLoginPass> apply(@NonNull String s) throws Exception {
-                        Log.v("fssdsdfsd", "request token " + s + " login " + login + " pass " + pass);
+                        Log.v("fssdsdfsd", "request token " + s + " login " + loginS + " pass " + passS);
 
-                        return Request.getTokenLoginPass(API_v3, login, pass, s);
+                        return Request.getTokenLoginPass(API_v3, loginS, passS, s);
                     }
                 })
-
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<TokenLoginPass>() {
                     @Override
                     public void accept(@NonNull TokenLoginPass tokenLoginPass) throws Exception {
@@ -117,10 +122,5 @@ public class LoginPresenter implements LoginContract.Presenter {
                         throwable.printStackTrace();
                     }
                 });
-    }
-
-    @Override
-    public void sendToken(String login, String pass) {
-
     }
 }

@@ -13,15 +13,16 @@ public class LoginContract {
         void setStateButton(boolean state);
 
         void setStateProgress(boolean state);
+
     }
 
     interface Presenter extends BasePresenter {
 
+
         void obsLoginPassword(InitialValueObservable<CharSequence> login,
                               InitialValueObservable<CharSequence> pass);
 
-        void obsSendButton(Observable<Object> btn, String login, String pass);
+        void obsSendButton(Observable<Object> btn);
 
-        void sendToken(String login, String pass);
     }
 }
