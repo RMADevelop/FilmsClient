@@ -12,7 +12,15 @@ public class LoginContract {
 
         void setStateButton(boolean state);
 
-        void setStateProgress(boolean state);
+        void setVisionButton(boolean state);
+
+        void setVisionProgress(boolean state);
+
+        void setVisionSuccesState(boolean state);
+
+        void setStateSuccesState(boolean state);
+
+        void startActivity();
 
     }
 
@@ -22,7 +30,8 @@ public class LoginContract {
         void obsLoginPassword(InitialValueObservable<CharSequence> login,
                               InitialValueObservable<CharSequence> pass);
 
-        void obsSendButton(Observable<Object> btn);
+
+        void sendTokenAndStartSession(String login, String pass);
 
     }
 }

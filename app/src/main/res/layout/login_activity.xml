@@ -20,9 +20,11 @@
         <EditText
             android:id="@+id/login"
             android:layout_width="100dp"
+            android:text="RomanM"
             android:layout_height="wrap_content"/>
     </android.support.design.widget.TextInputLayout>
     <EditText
+        android:text="517946235jrp"
         android:id="@+id/password"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
@@ -60,6 +62,20 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="6dp"
+        app:layout_constraintTop_toBottomOf="@+id/info_auth_text"/>
+    <ImageView
+        android:visibility="invisible"
+        android:id="@+id/success_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_success_ok"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="@+id/send_auth_button"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/send_auth_button"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/progress_login"
+        android:layout_marginBottom="8dp"
         app:layout_constraintTop_toBottomOf="@+id/info_auth_text"/>
 
 </android.support.constraint.ConstraintLayout>

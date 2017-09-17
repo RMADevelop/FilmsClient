@@ -6,6 +6,7 @@ import com.example.roma.filmsclient.data.source.Repository;
 import com.example.roma.filmsclient.data.source.local.LocalDataRoom;
 import com.example.roma.filmsclient.data.source.local.LocalRoomDAO;
 import com.example.roma.filmsclient.data.source.local.LocalSource;
+import com.example.roma.filmsclient.data.source.preference.SharedPref;
 import com.example.roma.filmsclient.data.source.remote.RemoteSource;
 
 /**
@@ -15,6 +16,6 @@ import com.example.roma.filmsclient.data.source.remote.RemoteSource;
 public class Injection {
  public static Repository provideRepository(Context context){
      LocalDataRoom db = LocalDataRoom.getInstance(context.getApplicationContext());
-     return Repository.getInstance(LocalSource.getInstance(db.getDAO()), RemoteSource.getInstance());
+     return Repository.getInstance(LocalSource.getInstance(db.getDAO()), RemoteSource.getInstance(), SharedPref.getInstanse(context));
  }
 }

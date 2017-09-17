@@ -1,12 +1,12 @@
 package com.example.roma.filmsclient.retrofit;
 
+import com.example.roma.filmsclient.pojo.SessionId;
 import com.example.roma.filmsclient.pojo.TokenLoginPass;
 import com.example.roma.filmsclient.pojo.TokenRequest;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-
 
 
 public interface Server {
@@ -20,6 +20,12 @@ public interface Server {
                                              @Query("password") String pass,
                                              @Query("request_token") String requestToken);
 
+    @GET("authentication/session/new")
+    Single<SessionId> getSessionId(@Query("api_key") String key,
+                                   @Query("request_token") String requestToken);
+
+
+//    @GET("")
 //    @GET("authentication/session/new")
 
 

@@ -1,5 +1,6 @@
 package com.example.roma.filmsclient.retrofit;
 
+import com.example.roma.filmsclient.pojo.SessionId;
 import com.example.roma.filmsclient.pojo.TokenLoginPass;
 import com.example.roma.filmsclient.pojo.TokenRequest;
 
@@ -49,5 +50,16 @@ public class Request {
                         throwable.printStackTrace();
                     }
                 });
+    }
+
+    public static Single<SessionId> createSessionId(String apiKey, String requestToken) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(URL_TMDb)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+
+        return retrofit.create(Server.class)
+                .getSessionId(apiKey, requestToken);
     }
 }
