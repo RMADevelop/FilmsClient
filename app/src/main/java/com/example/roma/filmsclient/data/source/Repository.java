@@ -3,7 +3,10 @@ package com.example.roma.filmsclient.data.source;
 import com.example.roma.filmsclient.data.source.local.LocalSource;
 import com.example.roma.filmsclient.data.source.preference.SharedPref;
 import com.example.roma.filmsclient.data.source.remote.RemoteSource;
+import com.example.roma.filmsclient.pojo.Movie;
 import com.example.roma.filmsclient.pojo.SessionId;
+
+import io.reactivex.Single;
 
 /**
  * Created by Roma on 09.09.2017.
@@ -36,4 +39,5 @@ public class Repository implements DataSource {
     public void saveSessionId(SessionId sessionId) {
         sp.saveSessionId(sessionId);
     }
+
 }

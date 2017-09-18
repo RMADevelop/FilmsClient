@@ -41,6 +41,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     public LoginPresenter(LoginContract.View view, Repository repository) {
         this.view = view;
         this.repository = repository;
+        view.setPresenter(this);
     }
 
     @Override

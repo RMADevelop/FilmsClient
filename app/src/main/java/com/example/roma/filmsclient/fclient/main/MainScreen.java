@@ -3,6 +3,9 @@ package com.example.roma.filmsclient.fclient.main;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,9 +17,28 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.roma.filmsclient.R;
+import com.example.roma.filmsclient.pojo.Movie;
+import com.example.roma.filmsclient.pojo.Result;
+import com.example.roma.filmsclient.retrofit.Request;
+import com.example.roma.filmsclient.utils.Injection;
+
+import java.util.Collections;
+import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainScreen extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MainScreenContract.View {
+
+    private MainScreenContract.Presenter presenter;
+
+    private RecyclerView rv;
+
+    private MainScreenAdapterRV adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +64,18 @@ public class MainScreen extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        presenter = new MainScreenPresenter(this, Injection.provideRepository(this));
+
+        initRV();
+
+    }
+
+    private void initRV() {
+        rv = (RecyclerView) findViewById(R.id.recycler_film);
+        adapter = new MainScreenAdapterRV(Collections.<Result>emptyList());
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        rv.setAdapter(adapter);
     }
 
     @Override
@@ -99,5 +133,15 @@ public class MainScreen extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void setPresenter(MainScreenContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
+
+    @Override
+    public void showMoviews(List<Result> moviews) {
+
     }
 }

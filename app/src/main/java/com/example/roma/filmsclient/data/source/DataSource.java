@@ -1,12 +1,18 @@
 package com.example.roma.filmsclient.data.source;
 
+import com.example.roma.filmsclient.pojo.Movie;
 import com.example.roma.filmsclient.pojo.SessionId;
 
-/**
- * Created by Roma on 09.09.2017.
- */
+import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.Single;
+
 
 public interface DataSource {
 
     void saveSessionId(SessionId sessionId);
+
+    Single<Movie> loadMoviesNowPlaying();
+
 }
