@@ -40,4 +40,9 @@ public class Repository implements DataSource {
         sp.saveSessionId(sessionId);
     }
 
+    @Override
+    public Single<Movie> loadMoviesNowPlaying() {
+        return remote.loadMoviesNowPlaying();
+    }
+
 }

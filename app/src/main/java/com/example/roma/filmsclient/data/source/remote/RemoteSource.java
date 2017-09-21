@@ -12,6 +12,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.example.roma.filmsclient.utils.Const.API_v3;
+import static com.example.roma.filmsclient.utils.Const.URL_TMDb;
 
 public class RemoteSource implements DataSource {
 
@@ -37,7 +38,7 @@ public class RemoteSource implements DataSource {
     @Override
     public Single<Movie> loadMoviesNowPlaying() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(API_v3)
+                .baseUrl(URL_TMDb)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();

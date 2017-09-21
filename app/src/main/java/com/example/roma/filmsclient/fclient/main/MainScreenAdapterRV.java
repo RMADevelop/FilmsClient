@@ -1,29 +1,32 @@
 package com.example.roma.filmsclient.fclient.main;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.roma.filmsclient.R;
 import com.example.roma.filmsclient.pojo.Result;
-
-import org.w3c.dom.Text;
+import com.example.roma.filmsclient.utils.Api;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Roma on 18.09.2017.
- */
 
 public class MainScreenAdapterRV extends RecyclerView.Adapter<MainScreenAdapterRV.ViewHolderMainScreen> {
     List<Result> movies = new ArrayList<>();
+    private Context context;
 
-    public MainScreenAdapterRV(List<Result> movies) {
+    public MainScreenAdapterRV(List<Result> movies, Context context) {
         this.movies = movies;
+        this.context = context;
     }
 
     @Override
@@ -36,12 +39,12 @@ public class MainScreenAdapterRV extends RecyclerView.Adapter<MainScreenAdapterR
 
     @Override
     public void onBindViewHolder(ViewHolderMainScreen holder, int position) {
-
+        holder.bindTo(movies.get(position), holder);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return movies.size();
     }
 
     public class ViewHolderMainScreen extends RecyclerView.ViewHolder {
@@ -55,5 +58,25 @@ public class MainScreenAdapterRV extends RecyclerView.Adapter<MainScreenAdapterR
             tittle = (TextView) itemView.findViewById(R.id.recycler_film_card_tittle);
             description = (TextView) itemView.findViewById(R.id.recycler_film_card_description);
         }
+
+        public void bindTo(Result item, ViewHolderMainScreen holder) {
+            tittle.setText(item.getTitle());
+            description.setText(item.getOverview().subSequence(0,75) + "...");
+            Glide.with(context)
+                    .load(Api.getPathPoster(item.getPosterPath()))
+                    .asBitmap()
+                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                    .into(new BitmapImageViewTarget(holder.poster));
+
+            Log.v("itemMovie", item.getTitle());
+
+        }
+    }
+
+    public void setMovies(List<Result> movies) {
+        Log.v("itemMovie", "setMovie " + movies.size());
+
+        this.movies = movies;
+        notifyDataSetChanged();
     }
 }

@@ -28,5 +28,10 @@ public class LocalSource implements DataSource {
 
     }
 
+    @Override
+    public Single<Movie> loadMoviesNowPlaying() {
+        return null;
+    }
+
 
 }

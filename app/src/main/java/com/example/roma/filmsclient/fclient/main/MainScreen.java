@@ -73,7 +73,7 @@ public class MainScreen extends AppCompatActivity
 
     private void initRV() {
         rv = (RecyclerView) findViewById(R.id.recycler_film);
-        adapter = new MainScreenAdapterRV(Collections.<Result>emptyList());
+        adapter = new MainScreenAdapterRV(Collections.<Result>emptyList(),this);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
     }
@@ -136,12 +136,18 @@ public class MainScreen extends AppCompatActivity
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.loadMovies();
+    }
+
+    @Override
     public void setPresenter(MainScreenContract.Presenter presenter) {
         this.presenter = presenter;
     }
 
     @Override
     public void showMoviews(List<Result> moviews) {
-
+        adapter.setMovies(moviews);
     }
 }
