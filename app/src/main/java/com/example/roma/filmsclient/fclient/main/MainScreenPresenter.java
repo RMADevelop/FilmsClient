@@ -31,7 +31,7 @@ public class MainScreenPresenter implements MainScreenContract.Presenter {
 
     @Override
     public void subscribe() {
-        loadMovies();
+
     }
 
     @Override
@@ -40,28 +40,12 @@ public class MainScreenPresenter implements MainScreenContract.Presenter {
     }
 
     @Override
-    public void loadMovies() {
-        repository.loadMoviesNowPlaying()
-                .map(new Function<Movie, List<Result>>() {
-                    @Override
-                    public List<Result> apply(@NonNull Movie movie) throws Exception {
-                        return movie.getResults();
-                    }
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<List<Result>>() {
-                    @Override
-                    public void onSuccess(@NonNull List<Result> results) {
-                        view.showMoviews(results);
-                    }
+    public void setPremiers() {
+        view.showPremiers();
+    }
 
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        e.printStackTrace();
-                    }
-                });
-
-
+    @Override
+    public void setMain() {
+        view.showMain();
     }
 }

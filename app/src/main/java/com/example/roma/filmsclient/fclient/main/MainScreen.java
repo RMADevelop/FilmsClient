@@ -1,12 +1,9 @@
 package com.example.roma.filmsclient.fclient.main;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,28 +14,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.roma.filmsclient.R;
-import com.example.roma.filmsclient.pojo.Movie;
+import com.example.roma.filmsclient.fclient.filmActivity.FilmActivity;
+import com.example.roma.filmsclient.fclient.main.main.Main;
+import com.example.roma.filmsclient.fclient.main.main.MainContract;
+import com.example.roma.filmsclient.fclient.main.premiers.PremiersAdapterRV;
+import com.example.roma.filmsclient.fclient.main.premiers.PremiersContract;
+import com.example.roma.filmsclient.fclient.main.premiers.PremiersFragment;
 import com.example.roma.filmsclient.pojo.Result;
-import com.example.roma.filmsclient.retrofit.Request;
+import com.example.roma.filmsclient.utils.ActivityUtils;
 import com.example.roma.filmsclient.utils.Injection;
 
-import java.util.Collections;
 import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.observers.DisposableSingleObserver;
-import io.reactivex.schedulers.Schedulers;
-
 public class MainScreen extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MainScreenContract.View {
+        implements NavigationView.OnNavigationItemSelectedListener, MainScreenContract.View, PremiersContract.FragmentListener, MainContract.MainListener {
 
     private MainScreenContract.Presenter presenter;
-
-    private RecyclerView rv;
-
-    private MainScreenAdapterRV adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +38,6 @@ public class MainScreen extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -67,16 +50,17 @@ public class MainScreen extends AppCompatActivity
 
         presenter = new MainScreenPresenter(this, Injection.provideRepository(this));
 
-        initRV();
+        initContainer();
 
     }
 
-    private void initRV() {
-        rv = (RecyclerView) findViewById(R.id.recycler_film);
-        adapter = new MainScreenAdapterRV(Collections.<Result>emptyList(),this);
-        rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setAdapter(adapter);
+    private void initContainer() {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container_main);
+        if (fragment == null) {
+            ActivityUtils.setFragment(getSupportFragmentManager(), new PremiersFragment(), R.id.container_main);
+        }
     }
+
 
     @Override
     public void onBackPressed() {
@@ -116,18 +100,15 @@ public class MainScreen extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        switch (id) {
+            case R.id.profile_menu:
+                break;
+            case R.id.main_menu:
+                presenter.setMain();
+                break;
+            case R.id.premiers_menu:
+                presenter.setPremiers();
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -136,9 +117,9 @@ public class MainScreen extends AppCompatActivity
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        presenter.loadMovies();
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter = null;
     }
 
     @Override
@@ -147,7 +128,19 @@ public class MainScreen extends AppCompatActivity
     }
 
     @Override
-    public void showMoviews(List<Result> moviews) {
-        adapter.setMovies(moviews);
+    public void showPremiers() {
+        ActivityUtils.setFragment(getSupportFragmentManager(), new PremiersFragment(), R.id.container_main);
+    }
+
+    @Override
+    public void showMain() {
+        ActivityUtils.setFragment(getSupportFragmentManager(), new Main(), R.id.container_main);
+    }
+
+    @Override
+    public void startActivity(int id) {
+        Intent intent = new Intent(this, FilmActivity.class);
+        intent.putExtra("filmId", id);
+        startActivity(intent);
     }
 }

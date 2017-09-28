@@ -13,14 +13,18 @@ import java.util.List;
 public interface MainScreenContract {
     interface View extends BaseView<Presenter> {
 
-        void showMoviews(List<Result> moviews);
+        void showPremiers();
+
+        void showMain();
 
 
     }
 
     interface Presenter extends BasePresenter {
 
-        void loadMovies();
+        void setPremiers();
+
+        void setMain();
 
     }
 }

@@ -4,13 +4,18 @@ import com.example.roma.filmsclient.pojo.Movie;
 import com.example.roma.filmsclient.pojo.SessionId;
 import com.example.roma.filmsclient.pojo.TokenLoginPass;
 import com.example.roma.filmsclient.pojo.TokenRequest;
+import com.example.roma.filmsclient.pojo.filmDetail.FilmDetail;
 
 import java.util.List;
 
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
+
+import static com.example.roma.filmsclient.utils.Const.API_v3;
 
 
 public interface Server {
@@ -36,7 +41,8 @@ public interface Server {
     Single<Movie> getMoviewNowShow(@Query("api_key") String key,
                                    @Query("language") String lang,
                                    @Query("page") String page);
-//    @GET("authentication/session/new")
 
+    @GET("movie/{movie_id}?api_key=" + API_v3)
+    Maybe<FilmDetail> getFilmInfo(@Path("movie_id") int idd);
 
 }

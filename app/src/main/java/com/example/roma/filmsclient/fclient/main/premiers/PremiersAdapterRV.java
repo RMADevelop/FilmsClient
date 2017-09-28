@@ -1,4 +1,4 @@
-package com.example.roma.filmsclient.fclient.main;
+package com.example.roma.filmsclient.fclient.main.premiers;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -20,13 +20,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainScreenAdapterRV extends RecyclerView.Adapter<MainScreenAdapterRV.ViewHolderMainScreen> {
+public class PremiersAdapterRV extends RecyclerView.Adapter<PremiersAdapterRV.ViewHolderMainScreen> {
     List<Result> movies = new ArrayList<>();
     private Context context;
 
-    public MainScreenAdapterRV(List<Result> movies, Context context) {
+    private PremiersContract.AdapterListener listener;
+
+    public PremiersAdapterRV(List<Result> movies, Context context, PremiersContract.AdapterListener listener) {
         this.movies = movies;
         this.context = context;
+        this.listener = listener;
     }
 
     @Override
@@ -51,17 +54,30 @@ public class MainScreenAdapterRV extends RecyclerView.Adapter<MainScreenAdapterR
         public ImageView poster;
         public TextView tittle;
         public TextView description;
+        TextView date;
+        TextView rating;
 
         public ViewHolderMainScreen(View itemView) {
             super(itemView);
             poster = (ImageView) itemView.findViewById(R.id.recycler_film_card_poster);
             tittle = (TextView) itemView.findViewById(R.id.recycler_film_card_tittle);
             description = (TextView) itemView.findViewById(R.id.recycler_film_card_description);
+            rating = (TextView) itemView.findViewById(R.id.rating);
+            date = (TextView) itemView.findViewById(R.id.date_card_film);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.filmClick(movies.get(getAdapterPosition()).getId());
+                }
+            });
         }
 
         public void bindTo(Result item, ViewHolderMainScreen holder) {
             tittle.setText(item.getTitle());
-            description.setText(item.getOverview().subSequence(0,75) + "...");
+            description.setText(item.getOverview().subSequence(0, 75) + "...");
+            rating.setText(String.valueOf(item.getVoteAverage()));
+            date.setText(item.getReleaseDate());
             Glide.with(context)
                     .load(Api.getPathPoster(item.getPosterPath()))
                     .asBitmap()
@@ -74,7 +90,7 @@ public class MainScreenAdapterRV extends RecyclerView.Adapter<MainScreenAdapterR
     }
 
     public void setMovies(List<Result> movies) {
-        Log.v("itemMovie", "setMovie " + movies.size());
+        Log.v("itemMovie", "setMovie " + movies.size() + " "+ movies.get(0).getId());
 
         this.movies = movies;
         notifyDataSetChanged();

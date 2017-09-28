@@ -6,9 +6,10 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import com.example.roma.filmsclient.data.Item;
+import com.example.roma.filmsclient.pojo.filmDetail.FilmDetail;
 
 
-@Database(entities = {Item.class},version = 1)
+@Database(entities = {FilmDetail.class},version = 1)
 public abstract class LocalDataRoom  extends RoomDatabase{
     public static LocalDataRoom INSTANCE;
 

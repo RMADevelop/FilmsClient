@@ -1,0 +1,97 @@
+package com.example.roma.filmsclient.fclient.main.main;
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.example.roma.filmsclient.R;
+import com.example.roma.filmsclient.fclient.filmActivity.FilmActivity;
+import com.example.roma.filmsclient.fclient.main.main.adapters.ViewPagerAdapter;
+import com.example.roma.filmsclient.pojo.Result;
+import com.example.roma.filmsclient.utils.Injection;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
+
+public class Main extends Fragment implements MainContract.View {
+
+    private MainContract.MainListener listener;
+
+    private MainContract.Presenter presenter;
+
+    private MainContract.ViewPagerListener listenerVP = new MainContract.ViewPagerListener() {
+        @Override
+        public void setPosition(int id) {
+            presenter.setFilmForActivity(id);
+        }
+    };
+
+    private ViewPager vp;
+
+    private ViewPagerAdapter adapter;
+
+    public Main() {
+        // Required empty public constructor
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
+
+        presenter = new MainPresenter(Injection.provideRepository(getActivity()), this);
+        initViewPager(view);
+        presenter.subscribe();
+        return view;
+    }
+
+    private void initViewPager(View view) {
+        vp = (ViewPager) view.findViewById(R.id.view_pager_main);
+        adapter = new ViewPagerAdapter(getChildFragmentManager(), Collections.<Result>emptyList(),listenerVP);
+        vp.setAdapter(adapter);
+
+    }
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof MainContract.MainListener) {
+            listener = (MainContract.MainListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
+    }
+
+    @Override
+    public void setPresenter(MainContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
+
+    @Override
+    public void showFilms(List<Result> list) {
+        adapter.setList(list);
+    }
+
+    @Override
+    public void startActivity(int id) {
+        Intent intent = new Intent(getActivity(), FilmActivity.class);
+        intent.putExtra("filmId", id);
+        startActivity(intent);
+    }
+}
