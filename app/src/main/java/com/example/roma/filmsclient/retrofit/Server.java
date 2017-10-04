@@ -1,6 +1,7 @@
 package com.example.roma.filmsclient.retrofit;
 
 import com.example.roma.filmsclient.pojo.Movie;
+import com.example.roma.filmsclient.pojo.Result;
 import com.example.roma.filmsclient.pojo.SessionId;
 import com.example.roma.filmsclient.pojo.TokenLoginPass;
 import com.example.roma.filmsclient.pojo.TokenRequest;
@@ -41,6 +42,9 @@ public interface Server {
     Single<Movie> getMoviewNowShow(@Query("api_key") String key,
                                    @Query("language") String lang,
                                    @Query("page") String page);
+
+    @GET("movie/{movie_id}/recommendations?api_key=0a94b53a493baafc9c1434714336e957&language=en-US&page=1")
+    Single<Movie> getRecommended(@Path("movie_id") int id);
 
     @GET("movie/{movie_id}?api_key=" + API_v3)
     Maybe<FilmDetail> getFilmInfo(@Path("movie_id") int idd);

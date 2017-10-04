@@ -63,6 +63,18 @@ public class RemoteSource implements DataSource {
     }
 
     @Override
+    public Single<Movie> loadRecommended(int id) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(URL_TMDb)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+
+        return retrofit.create(Server.class)
+                .getRecommended(id);
+    }
+
+    @Override
     public void saveFilmInfo(FilmDetail film) {
 
     }

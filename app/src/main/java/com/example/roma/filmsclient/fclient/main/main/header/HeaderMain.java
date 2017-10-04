@@ -1,10 +1,8 @@
 package com.example.roma.filmsclient.fclient.main.main.header;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +12,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.roma.filmsclient.R;
 import com.example.roma.filmsclient.fclient.filmActivity.FilmActivity;
 import com.example.roma.filmsclient.pojo.Result;

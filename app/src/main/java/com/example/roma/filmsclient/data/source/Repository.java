@@ -67,6 +67,11 @@ public class Repository implements DataSource {
     }
 
     @Override
+    public Single<Movie> loadRecommended(int id) {
+        return remote.loadRecommended(id);
+    }
+
+    @Override
     public void saveFilmInfo(FilmDetail film) {
         local.saveFilmInfo(film);
         Log.v("remoteLocal", "save film");

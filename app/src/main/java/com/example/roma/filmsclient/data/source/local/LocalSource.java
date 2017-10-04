@@ -44,6 +44,11 @@ public class LocalSource implements DataSource {
     }
 
     @Override
+    public Single<Movie> loadRecommended(int id) {
+        return null;
+    }
+
+    @Override
     public void saveFilmInfo(FilmDetail film) {
         dao.saveFilmDeatail(film);
         Log.v("remoteLocal", "save dao film");

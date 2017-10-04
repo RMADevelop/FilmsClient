@@ -1,6 +1,7 @@
 package com.example.roma.filmsclient.data.source;
 
 import com.example.roma.filmsclient.pojo.Movie;
+import com.example.roma.filmsclient.pojo.Result;
 import com.example.roma.filmsclient.pojo.SessionId;
 import com.example.roma.filmsclient.pojo.filmDetail.FilmDetail;
 
@@ -18,6 +19,8 @@ public interface DataSource {
     Single<Movie> loadMoviesNowPlaying();
 
     Maybe<FilmDetail> getFilmInfo(int id);
+
+    Single<Movie> loadRecommended(int id);
 
     void saveFilmInfo(FilmDetail film);
 

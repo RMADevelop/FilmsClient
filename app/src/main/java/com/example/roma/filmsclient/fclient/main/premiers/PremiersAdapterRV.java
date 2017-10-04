@@ -35,7 +35,7 @@ public class PremiersAdapterRV extends RecyclerView.Adapter<PremiersAdapterRV.Vi
     @Override
     public ViewHolderMainScreen onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.recycler_film_card, parent, false);
+        View view = inflater.inflate(R.layout.recycler_film_card_max, parent, false);
 
         return new ViewHolderMainScreen(view);
     }
