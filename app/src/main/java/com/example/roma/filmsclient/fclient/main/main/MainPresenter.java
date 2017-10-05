@@ -9,6 +9,7 @@ import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
@@ -19,6 +20,8 @@ public class MainPresenter implements MainContract.Presenter {
     private MainContract.View view;
 
     private List<Result> films;
+
+    private List<Result> popularFilms;
 
     public MainPresenter(Repository repository, MainContract.View view) {
         this.repository = repository;
@@ -39,7 +42,7 @@ public class MainPresenter implements MainContract.Presenter {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-
+                        e.printStackTrace();
                     }
                 });
     }
@@ -51,6 +54,32 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void setFilmForActivity(int position) {
-        view.startActivity(films.get(position).getId());
+        view.startActivity(popularFilms.get(position).getId());
+    }
+
+    @Override
+    public void getPopular() {
+        repository.loadPopular()
+                .subscribeOn(Schedulers.io())
+                .map(new Function<Movie, List<Result>>() {
+                    @Override
+                    public List<Result> apply(@NonNull Movie movie) throws Exception {
+                        return movie.getResults();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<List<Result>>() {
+                    @Override
+                    public void onSuccess(@NonNull List<Result> results) {
+                        popularFilms = results;
+                        view.showPopular(results);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        e.printStackTrace();
+                    }
+                });
+
     }
 }

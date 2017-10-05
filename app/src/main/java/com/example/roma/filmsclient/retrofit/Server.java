@@ -46,6 +46,9 @@ public interface Server {
     @GET("movie/{movie_id}/recommendations?api_key=0a94b53a493baafc9c1434714336e957&language=en-US&page=1")
     Single<Movie> getRecommended(@Path("movie_id") int id);
 
+    @GET("movie/popular?api_key=0a94b53a493baafc9c1434714336e957&language=en-US&page=1")
+    Single<Movie> getPopular();
+
     @GET("movie/{movie_id}?api_key=" + API_v3)
     Maybe<FilmDetail> getFilmInfo(@Path("movie_id") int idd);
 

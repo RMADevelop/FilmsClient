@@ -38,6 +38,11 @@ public class LocalSource implements DataSource {
     }
 
     @Override
+    public Single<Movie> loadPopular() {
+        return null;
+    }
+
+    @Override
     public Maybe<FilmDetail> getFilmInfo(int id) {
         Log.v("remoteLocal", "getLocal");
         return dao.getFilmInfo(id);

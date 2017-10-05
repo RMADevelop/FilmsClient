@@ -15,18 +15,26 @@ public interface MainContract {
         void showFilms(List<Result> list);
 
         void startActivity(int id);
+
+        void showPopular(List<Result> films);
     }
 
     interface Presenter extends BasePresenter {
 
         void setFilmForActivity(int position);
+
+        void getPopular();
     }
 
-    interface MainListener{
+    interface MainListener {
 
     }
 
-    public interface ViewPagerListener{
+    interface ViewPagerListener {
         void setPosition(int id);
+    }
+
+    interface RecyclerViewListener{
+        void itemClick(int id);
     }
 }

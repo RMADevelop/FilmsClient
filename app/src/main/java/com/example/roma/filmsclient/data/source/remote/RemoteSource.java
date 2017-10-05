@@ -21,8 +21,14 @@ public class RemoteSource implements DataSource {
 
     private static RemoteSource INSTANCE;
 
-    private RemoteSource() {
+    private Retrofit retrofit;
 
+    private RemoteSource() {
+        retrofit = new Retrofit.Builder()
+                .baseUrl(URL_TMDb)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
     }
 
     public static RemoteSource getInstance() {
@@ -40,22 +46,18 @@ public class RemoteSource implements DataSource {
 
     @Override
     public Single<Movie> loadMoviesNowPlaying() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(URL_TMDb)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-
         return retrofit.create(Server.class).getMovie();
     }
 
     @Override
+    public Single<Movie> loadPopular() {
+        return retrofit.create(Server.class)
+                .getPopular();
+    }
+
+    @Override
     public Maybe<FilmDetail> getFilmInfo(int id) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(URL_TMDb)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
+
         Log.v("remoteLocal", "fetch film");
 
         return retrofit.create(Server.class)
@@ -64,11 +66,6 @@ public class RemoteSource implements DataSource {
 
     @Override
     public Single<Movie> loadRecommended(int id) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(URL_TMDb)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
 
         return retrofit.create(Server.class)
                 .getRecommended(id);
