@@ -62,7 +62,7 @@ public class AdapterPopularityRecyclerView extends RecyclerView.Adapter<AdapterP
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.itemClick(getAdapterPosition());
+                    listener.itemClick(films.get(getAdapterPosition()).getId());
                 }
             });
         }

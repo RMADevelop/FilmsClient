@@ -56,6 +56,18 @@ public class RemoteSource implements DataSource {
     }
 
     @Override
+    public Single<Movie> loadTopRated() {
+        return retrofit.create(Server.class)
+                .getTopRated();
+    }
+
+    @Override
+    public Single<Movie> loadUpcoming() {
+        return retrofit.create(Server.class)
+                .getUpcoming();
+    }
+
+    @Override
     public Maybe<FilmDetail> getFilmInfo(int id) {
 
         Log.v("remoteLocal", "fetch film");

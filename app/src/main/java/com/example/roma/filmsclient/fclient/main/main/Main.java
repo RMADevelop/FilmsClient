@@ -18,7 +18,6 @@ import com.example.roma.filmsclient.fclient.main.main.adapters.ViewPagerAdapter;
 import com.example.roma.filmsclient.pojo.Result;
 import com.example.roma.filmsclient.utils.Injection;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -36,7 +35,19 @@ public class Main extends Fragment implements MainContract.View {
         }
     };
 
-    private MainContract.RecyclerViewListener listenerRV = new MainContract.RecyclerViewListener() {
+    private MainContract.RecyclerViewListener listenerPopular = new MainContract.RecyclerViewListener() {
+        @Override
+        public void itemClick(int id) {
+            presenter.setFilmForActivity(id);
+        }
+    };
+    private MainContract.RecyclerViewListener listenerTopRated = new MainContract.RecyclerViewListener() {
+        @Override
+        public void itemClick(int id) {
+            presenter.setFilmForActivity(id);
+        }
+    };
+    private MainContract.RecyclerViewListener listenerUpcoming = new MainContract.RecyclerViewListener() {
         @Override
         public void itemClick(int id) {
             presenter.setFilmForActivity(id);
@@ -48,8 +59,13 @@ public class Main extends Fragment implements MainContract.View {
     private ViewPagerAdapter adapter;
 
     private RecyclerView popularityRecycler;
+    private RecyclerView topRatedRecycler;
+    private RecyclerView upcommingRecycler;
+
 
     private AdapterPopularityRecyclerView adapterPopularity;
+    private AdapterPopularityRecyclerView adapterTopRated;
+    private AdapterPopularityRecyclerView adapterUpcoming;
 
     public Main() {
         // Required empty public constructor
@@ -64,6 +80,8 @@ public class Main extends Fragment implements MainContract.View {
         presenter = new MainPresenter(Injection.provideRepository(getActivity()), this);
         initViewPager(view);
         initPopularity(view);
+        initTopRated(view);
+        initUpcomming(view);
         presenter.subscribe();
         return view;
     }
@@ -72,13 +90,32 @@ public class Main extends Fragment implements MainContract.View {
     public void onStart() {
         super.onStart();
         presenter.getPopular();
+        presenter.getTopRated();
+        presenter.getUpcoming();
     }
+
+    private void initTopRated(View view) {
+        topRatedRecycler = (RecyclerView) view.findViewById(R.id.top_rated_recycler);
+        topRatedRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        adapterTopRated = new AdapterPopularityRecyclerView(getContext(), Collections.<Result>emptyList(), listenerTopRated);
+        topRatedRecycler.setAdapter(adapterTopRated);
+    }
+
+    private void initUpcomming(View view) {
+        upcommingRecycler = (RecyclerView) view.findViewById(R.id.upcoming_recycler);
+        upcommingRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        adapterUpcoming = new AdapterPopularityRecyclerView(getContext(), Collections.<Result>emptyList(), listenerUpcoming);
+        upcommingRecycler.setAdapter(adapterUpcoming);
+    }
+
 
     private void initPopularity(View view) {
         popularityRecycler = (RecyclerView) view.findViewById(R.id.popularity_recycler);
         popularityRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        adapterPopularity = new AdapterPopularityRecyclerView(getContext(), Collections.<Result>emptyList(), listenerRV);
+        adapterPopularity = new AdapterPopularityRecyclerView(getContext(), Collections.<Result>emptyList(), listenerPopular);
         popularityRecycler.setAdapter(adapterPopularity);
     }
 
@@ -127,5 +164,15 @@ public class Main extends Fragment implements MainContract.View {
     @Override
     public void showPopular(List<Result> films) {
         adapterPopularity.setList(films);
+    }
+
+    @Override
+    public void showTopRated(List<Result> films) {
+        adapterTopRated.setList(films);
+    }
+
+    @Override
+    public void showUpcoming(List<Result> films) {
+        adapterUpcoming.setList(films);
     }
 }

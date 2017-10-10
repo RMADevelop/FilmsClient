@@ -57,6 +57,16 @@ public class Repository implements DataSource {
     }
 
     @Override
+    public Single<Movie> loadTopRated() {
+        return remote.loadTopRated();
+    }
+
+    @Override
+    public Single<Movie> loadUpcoming() {
+        return remote.loadUpcoming();
+    }
+
+    @Override
     public Maybe<FilmDetail> getFilmInfo(int id) {
         return Maybe.concat(
                 local.getFilmInfo(id),

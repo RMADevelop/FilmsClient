@@ -17,4 +17,10 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+
+    <style name="Button_more" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:textSize">10sp</item>
+        <item name="android:text">MORE</item>
+    </style>
+
 </resources>

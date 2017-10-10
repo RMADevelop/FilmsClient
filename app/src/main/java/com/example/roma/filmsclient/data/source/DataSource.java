@@ -20,6 +20,10 @@ public interface DataSource {
 
     Single<Movie> loadPopular();
 
+    Single<Movie> loadTopRated();
+
+    Single<Movie> loadUpcoming();
+
     Maybe<FilmDetail> getFilmInfo(int id);
 
     Single<Movie> loadRecommended(int id);

@@ -17,6 +17,10 @@ public interface MainContract {
         void startActivity(int id);
 
         void showPopular(List<Result> films);
+
+        void showTopRated(List<Result> films);
+
+        void showUpcoming(List<Result> films);
     }
 
     interface Presenter extends BasePresenter {
@@ -24,6 +28,10 @@ public interface MainContract {
         void setFilmForActivity(int position);
 
         void getPopular();
+
+        void getTopRated();
+
+        void getUpcoming();
     }
 
     interface MainListener {
@@ -34,7 +42,7 @@ public interface MainContract {
         void setPosition(int id);
     }
 
-    interface RecyclerViewListener{
+    interface RecyclerViewListener {
         void itemClick(int id);
     }
 }

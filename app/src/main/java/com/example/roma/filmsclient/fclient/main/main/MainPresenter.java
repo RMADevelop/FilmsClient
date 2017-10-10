@@ -54,7 +54,7 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void setFilmForActivity(int position) {
-        view.startActivity(popularFilms.get(position).getId());
+        view.startActivity(position);
     }
 
     @Override
@@ -81,5 +81,53 @@ public class MainPresenter implements MainContract.Presenter {
                     }
                 });
 
+    }
+
+    @Override
+    public void getTopRated() {
+        repository.loadTopRated()
+                .subscribeOn(Schedulers.io())
+                .map(new Function<Movie, List<Result>>() {
+                    @Override
+                    public List<Result> apply(@NonNull Movie movie) throws Exception {
+                        return movie.getResults();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<List<Result>>() {
+                    @Override
+                    public void onSuccess(@NonNull List<Result> results) {
+                        view.showTopRated(results);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        e.printStackTrace();
+                    }
+                });
+    }
+
+    @Override
+    public void getUpcoming() {
+        repository.loadUpcoming()
+                .subscribeOn(Schedulers.io())
+                .map(new Function<Movie, List<Result>>() {
+                    @Override
+                    public List<Result> apply(@NonNull Movie movie) throws Exception {
+                        return movie.getResults();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<List<Result>>() {
+                    @Override
+                    public void onSuccess(@NonNull List<Result> results) {
+                        view.showUpcoming(results);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        e.printStackTrace();
+                    }
+                });
     }
 }
