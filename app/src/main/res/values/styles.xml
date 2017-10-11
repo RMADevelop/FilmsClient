@@ -19,6 +19,8 @@
 
 
     <style name="Button_more" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:layout_height">35dp</item>
+        <item name="android:layout_width">55dp</item>
         <item name="android:textSize">10sp</item>
         <item name="android:text">MORE</item>
     </style>

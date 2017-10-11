@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.roma.filmsclient.R;
 import com.example.roma.filmsclient.fclient.filmActivity.FilmActivity;
@@ -58,6 +59,12 @@ public class Main extends Fragment implements MainContract.View {
 
     private ViewPagerAdapter adapter;
 
+    private Button btnMorePopular;
+
+    private Button btnMoreTopRated;
+
+    private Button btnMoreUpcomming;
+
     private RecyclerView popularityRecycler;
     private RecyclerView topRatedRecycler;
     private RecyclerView upcommingRecycler;
@@ -100,6 +107,14 @@ public class Main extends Fragment implements MainContract.View {
 
         adapterTopRated = new AdapterPopularityRecyclerView(getContext(), Collections.<Result>emptyList(), listenerTopRated);
         topRatedRecycler.setAdapter(adapterTopRated);
+
+        btnMoreTopRated = (Button)view.findViewById(R.id.button_more_top_rated);
+        btnMoreTopRated.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void initUpcomming(View view) {
@@ -108,6 +123,14 @@ public class Main extends Fragment implements MainContract.View {
 
         adapterUpcoming = new AdapterPopularityRecyclerView(getContext(), Collections.<Result>emptyList(), listenerUpcoming);
         upcommingRecycler.setAdapter(adapterUpcoming);
+
+        btnMoreUpcomming = (Button) view.findViewById(R.id.button_more_upcoming);
+        btnMoreUpcomming.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
 
@@ -117,6 +140,14 @@ public class Main extends Fragment implements MainContract.View {
 
         adapterPopularity = new AdapterPopularityRecyclerView(getContext(), Collections.<Result>emptyList(), listenerPopular);
         popularityRecycler.setAdapter(adapterPopularity);
+
+        btnMorePopular = (Button) view.findViewById(R.id.button_more_popularity);
+        btnMorePopular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void initViewPager(View view) {
