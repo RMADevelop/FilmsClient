@@ -17,14 +17,18 @@ public interface MainScreenContract {
 
         void showMain();
 
+        void showFilmsList(String type);
 
     }
 
     interface Presenter extends BasePresenter {
 
-        void setPremiers();
+        void setFilmsList();
+
+        void setFilmsList(String type);
 
         void setMain();
+
 
     }
 }

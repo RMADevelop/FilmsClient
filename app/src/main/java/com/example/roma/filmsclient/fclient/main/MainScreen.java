@@ -3,7 +3,6 @@ package com.example.roma.filmsclient.fclient.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,14 +16,10 @@ import com.example.roma.filmsclient.R;
 import com.example.roma.filmsclient.fclient.filmActivity.FilmActivity;
 import com.example.roma.filmsclient.fclient.main.main.Main;
 import com.example.roma.filmsclient.fclient.main.main.MainContract;
-import com.example.roma.filmsclient.fclient.main.premiers.PremiersAdapterRV;
 import com.example.roma.filmsclient.fclient.main.premiers.PremiersContract;
 import com.example.roma.filmsclient.fclient.main.premiers.PremiersFragment;
-import com.example.roma.filmsclient.pojo.Result;
 import com.example.roma.filmsclient.utils.ActivityUtils;
 import com.example.roma.filmsclient.utils.Injection;
-
-import java.util.List;
 
 public class MainScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainScreenContract.View, PremiersContract.FragmentListener, MainContract.MainListener {
@@ -107,7 +102,7 @@ public class MainScreen extends AppCompatActivity
                 presenter.setMain();
                 break;
             case R.id.premiers_menu:
-                presenter.setPremiers();
+                presenter.setFilmsList();
                 break;
         }
 
@@ -138,9 +133,19 @@ public class MainScreen extends AppCompatActivity
     }
 
     @Override
+    public void showFilmsList(String type) {
+        ActivityUtils.setFragment(getSupportFragmentManager(), PremiersFragment.getInstance(type),R.id.container_main);
+    }
+
+    @Override
     public void startActivity(int id) {
         Intent intent = new Intent(this, FilmActivity.class);
         intent.putExtra("filmId", id);
         startActivity(intent);
+    }
+
+    @Override
+    public void setFragmentList(String type) {
+        presenter.setFilmsList(type);
     }
 }

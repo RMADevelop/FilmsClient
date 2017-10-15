@@ -20,6 +20,12 @@ import java.util.List;
 
 public class PremiersFragment extends Fragment implements PremiersContract.View {
 
+
+    public static final String ARG_TOP_RATED = "ARG_TOP_RATED";
+    public static final String ARG_POPULAR = "ARG_POPULAR";
+    public static final String ARG_UPCOMMING = "ARG_UPCOMMING";
+
+    private static final String KEY_TYPE = "KEY_TYPE";
     PremiersContract.Presenter presenter;
 
     PremiersAdapterRV adapter;
@@ -37,6 +43,14 @@ public class PremiersFragment extends Fragment implements PremiersContract.View 
 
     public PremiersFragment() {
         // Required empty public constructor
+    }
+
+    public static PremiersFragment getInstance(String type) {
+        Bundle bundle = new Bundle();
+        bundle.putString(KEY_TYPE, type);
+        PremiersFragment fragment = new PremiersFragment();
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
 

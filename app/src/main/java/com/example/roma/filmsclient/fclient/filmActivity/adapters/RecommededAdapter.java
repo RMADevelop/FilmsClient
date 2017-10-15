@@ -26,12 +26,10 @@ public class RecommededAdapter extends RecyclerView.Adapter<RecommededAdapter.Re
 
     private List<Result> films;
 
-    private FilmContract.RecommendedRecycler listener;
 
-    public RecommededAdapter(Context context, List<Result> films, FilmContract.RecommendedRecycler listener) {
+    public RecommededAdapter(Context context, List<Result> films) {
         this.context = context;
         this.films = films;
-        this.listener = listener;
     }
 
     @Override
@@ -62,7 +60,6 @@ public class RecommededAdapter extends RecyclerView.Adapter<RecommededAdapter.Re
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.filmClick(films.get(getAdapterPosition()).getId());
                 }
             });
         }

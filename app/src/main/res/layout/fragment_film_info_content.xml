@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+<android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textView2"
@@ -22,7 +25,7 @@
         app:layout_constraintTop_toBottomOf="@+id/description_film_info" />
 
     <android.support.v7.widget.CardView
-        android:id="@+id/poster_film_info"
+        android:id="@+id/card_poster_film_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardCornerRadius="4dp"
@@ -30,7 +33,7 @@
         app:layout_constraintLeft_toLeftOf="parent">
 
         <ImageView
-            android:id="@+id/posterr_film_info"
+            android:id="@+id/poster_film_info"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -50,7 +53,7 @@
         android:text="test_title"
         android:textSize="24sp"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toRightOf="@+id/poster_film_info"
+        app:layout_constraintLeft_toRightOf="@+id/card_poster_film_info"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -74,7 +77,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/poster_film_info" />
+        app:layout_constraintTop_toBottomOf="@+id/card_poster_film_info" />
 
     <TextView
         android:id="@+id/textView"
@@ -166,5 +169,6 @@
         tools:layout_height="100dp">
 
     </android.support.v7.widget.RecyclerView>
-
 </android.support.constraint.ConstraintLayout>
+
+</android.support.v4.widget.NestedScrollView>

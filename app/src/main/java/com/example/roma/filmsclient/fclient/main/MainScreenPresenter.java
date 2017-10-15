@@ -40,8 +40,13 @@ public class MainScreenPresenter implements MainScreenContract.Presenter {
     }
 
     @Override
-    public void setPremiers() {
+    public void setFilmsList() {
         view.showPremiers();
+    }
+
+    @Override
+    public void setFilmsList(String type) {
+        view.showFilmsList(type);
     }
 
     @Override

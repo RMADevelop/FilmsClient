@@ -15,25 +15,18 @@ import java.util.List;
 public interface FilmContract {
     interface View extends BaseView<Presenter> {
 
+ void setVisibleView(boolean state);
+
         void showMovie(FilmDetail film);
-
-        void showRecommended(List<Result> films);
-
-        void setVisibleView(boolean state);
 
         void startActivity(int id);
     }
 
     interface Presenter extends BasePresenter {
-
         void loadFilm(int id);
 
-        void loadRecommended(int id);
 
-        void filmClick(int id);
     }
 
-    interface RecommendedRecycler {
-        void filmClick(int id);
-    }
+
 }

@@ -22,6 +22,10 @@ import com.example.roma.filmsclient.utils.Injection;
 import java.util.Collections;
 import java.util.List;
 
+import static com.example.roma.filmsclient.fclient.main.premiers.PremiersFragment.ARG_POPULAR;
+import static com.example.roma.filmsclient.fclient.main.premiers.PremiersFragment.ARG_TOP_RATED;
+import static com.example.roma.filmsclient.fclient.main.premiers.PremiersFragment.ARG_UPCOMMING;
+
 
 public class Main extends Fragment implements MainContract.View {
 
@@ -108,11 +112,11 @@ public class Main extends Fragment implements MainContract.View {
         adapterTopRated = new AdapterPopularityRecyclerView(getContext(), Collections.<Result>emptyList(), listenerTopRated);
         topRatedRecycler.setAdapter(adapterTopRated);
 
-        btnMoreTopRated = (Button)view.findViewById(R.id.button_more_top_rated);
+        btnMoreTopRated = (Button) view.findViewById(R.id.button_more_top_rated);
         btnMoreTopRated.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                presenter.getFilmList(ARG_TOP_RATED);
             }
         });
     }
@@ -128,6 +132,7 @@ public class Main extends Fragment implements MainContract.View {
         btnMoreUpcomming.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                presenter.getFilmList(ARG_UPCOMMING);
 
             }
         });
@@ -145,7 +150,7 @@ public class Main extends Fragment implements MainContract.View {
         btnMorePopular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                presenter.getFilmList(ARG_POPULAR);
             }
         });
     }
@@ -205,5 +210,10 @@ public class Main extends Fragment implements MainContract.View {
     @Override
     public void showUpcoming(List<Result> films) {
         adapterUpcoming.setList(films);
+    }
+
+    @Override
+    public void showFilmList(String type) {
+        listener.setFragmentList(type);
     }
 }

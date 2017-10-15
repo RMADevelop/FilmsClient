@@ -58,6 +58,11 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
+    public void getFilmList(String type) {
+
+    }
+
+    @Override
     public void getPopular() {
         repository.loadPopular()
                 .subscribeOn(Schedulers.io())

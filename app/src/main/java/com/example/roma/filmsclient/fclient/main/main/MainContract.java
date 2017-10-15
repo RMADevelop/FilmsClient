@@ -6,9 +6,6 @@ import com.example.roma.filmsclient.pojo.Result;
 
 import java.util.List;
 
-/**
- * Created by Roma on 28.09.2017.
- */
 
 public interface MainContract {
     interface View extends BaseView<Presenter> {
@@ -21,21 +18,27 @@ public interface MainContract {
         void showTopRated(List<Result> films);
 
         void showUpcoming(List<Result> films);
+
+        void showFilmList(String type);
     }
 
     interface Presenter extends BasePresenter {
 
         void setFilmForActivity(int position);
 
+        void getFilmList(String type);
+
         void getPopular();
 
         void getTopRated();
 
         void getUpcoming();
+
+
     }
 
     interface MainListener {
-
+        void setFragmentList(String type);
     }
 
     interface ViewPagerListener {
