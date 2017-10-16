@@ -15,7 +15,7 @@ import java.util.List;
 public interface FilmContract {
     interface View extends BaseView<Presenter> {
 
- void setVisibleView(boolean state);
+        void setVisibleView(boolean state);
 
         void showMovie(FilmDetail film);
 

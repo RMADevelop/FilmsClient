@@ -12,8 +12,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.roma.filmsclient.R;
-import com.example.roma.filmsclient.fclient.filmActivity.FilmActivity;
-import com.example.roma.filmsclient.fclient.filmActivity.FilmContract;
 import com.example.roma.filmsclient.pojo.Result;
 import com.example.roma.filmsclient.utils.Api;
 
@@ -34,7 +32,7 @@ public class RecommededAdapter extends RecyclerView.Adapter<RecommededAdapter.Re
 
     @Override
     public RecommendedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_film_card_min, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_film_card_min, parent, false);
         return new RecommendedViewHolder(view);
     }
 

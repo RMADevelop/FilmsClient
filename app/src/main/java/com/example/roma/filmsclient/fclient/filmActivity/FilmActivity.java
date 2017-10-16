@@ -13,12 +13,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.roma.filmsclient.R;
 import com.example.roma.filmsclient.fclient.filmActivity.adapters.ViewPagerFilmInfo;
+import com.example.roma.filmsclient.fclient.filmActivity.filmActors.FragmentFilmActors;
 import com.example.roma.filmsclient.fclient.filmActivity.filmInfo.FragmentFilmInfo;
 import com.example.roma.filmsclient.pojo.filmDetail.FilmDetail;
 import com.example.roma.filmsclient.utils.Api;
 import com.example.roma.filmsclient.utils.Injection;
 
-public class FilmActivity extends AppCompatActivity implements FilmContract.View, FragmentFilmInfo.OnFragmentInteractionListener {
+public class FilmActivity extends AppCompatActivity implements FilmContract.View,
+        FragmentFilmInfo.OnFragmentInteractionListener,FragmentFilmActors.OnFragmentInteractionListener {
 
     FilmContract.Presenter presenter;
 

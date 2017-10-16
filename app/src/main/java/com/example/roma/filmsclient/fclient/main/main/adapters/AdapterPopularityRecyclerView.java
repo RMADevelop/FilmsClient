@@ -36,7 +36,7 @@ public class AdapterPopularityRecyclerView extends RecyclerView.Adapter<AdapterP
 
     @Override
     public ViewHolderPopularity onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_film_card_min, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_film_card_min, parent, false);
         return new ViewHolderPopularity(view);
     }
 
