@@ -21,8 +21,8 @@
         android:layout_marginTop="16dp"
         android:background="@color/black"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="@+id/description_film_info"
-        app:layout_constraintTop_toBottomOf="@+id/description_film_info" />
+        app:layout_constraintRight_toRightOf="@+id/text_description_base_info"
+        app:layout_constraintTop_toBottomOf="@+id/text_description_base_info" />
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_poster_film_info"
@@ -33,7 +33,7 @@
         app:layout_constraintLeft_toLeftOf="parent">
 
         <ImageView
-            android:id="@+id/poster_film_info"
+            android:id="@+id/image_poster_base_info"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -43,7 +43,7 @@
 
 
     <TextView
-        android:id="@+id/title_film_info"
+        android:id="@+id/text_title_base_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -58,18 +58,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/date_film_info"
+        android:id="@+id/text_date_base_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="10/10/20/17"
         android:textStyle="italic"
-        app:layout_constraintLeft_toLeftOf="@+id/title_film_info"
-        app:layout_constraintTop_toBottomOf="@+id/title_film_info" />
+        app:layout_constraintLeft_toLeftOf="@+id/text_title_base_info"
+        app:layout_constraintTop_toBottomOf="@+id/text_title_base_info" />
 
 
     <TextView
-        android:id="@+id/description_film_info"
+        android:id="@+id/text_description_base_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -90,8 +90,8 @@
         android:layout_marginTop="16dp"
         android:background="@color/green"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="@+id/description_film_info"
-        app:layout_constraintTop_toBottomOf="@+id/description_film_info" />
+        app:layout_constraintRight_toRightOf="@+id/text_description_base_info"
+        app:layout_constraintTop_toBottomOf="@+id/text_description_base_info" />
 
     <ImageView
         android:id="@+id/rate_film_info"
@@ -142,7 +142,7 @@
         android:background="@color/green"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="@+id/description_film_info"
+        app:layout_constraintRight_toRightOf="@+id/text_description_base_info"
         app:layout_constraintTop_toBottomOf="@+id/rate_film_info" />
 
     <TextView
@@ -157,7 +157,7 @@
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="0dp"
-        android:id="@+id/recommended_recycler"
+        android:id="@+id/recycler_view_recommended_base_info"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"

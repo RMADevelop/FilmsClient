@@ -78,15 +78,15 @@ public class FragmentFilmInfo extends Fragment implements FragmentFilmInfoContra
     }
 
     private void initFields(View view) {
-        title = (TextView) view.findViewById(R.id.title_film_info);
-        date = (TextView) view.findViewById(R.id.date_film_info);
-        description = (TextView) view.findViewById(R.id.description_film_info);
+        title = (TextView) view.findViewById(R.id.text_title_base_info);
+        date = (TextView) view.findViewById(R.id.text_date_base_info);
+        description = (TextView) view.findViewById(R.id.text_description_base_info);
 
 
     }
 
     private void initPoster(View view) {
-        poster = (ImageView) view.findViewById(R.id.poster_film_info);
+        poster = (ImageView) view.findViewById(R.id.image_poster_base_info);
     }
 
     @Override
